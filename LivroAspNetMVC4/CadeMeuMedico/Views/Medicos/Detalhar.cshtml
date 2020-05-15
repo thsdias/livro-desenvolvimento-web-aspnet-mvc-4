@@ -1,0 +1,83 @@
+﻿@model CadeMeuMedico.Models.Medicos
+
+@{
+    ViewBag.Title = "Detalhar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhar</h2>
+
+<fieldset disabled>
+    <legend>Médicos</legend>
+    <form>
+        @Html.HiddenFor(model => model.IDMedico)
+        <div class="form-group">
+            @Html.LabelFor(model => model.CRM)
+            @Html.TextBoxFor(model => model.CRM, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CRM)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nome)
+            @Html.TextBoxFor(model => model.Nome, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Nome)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Endereco)
+            @Html.TextBoxFor(model => model.Endereco, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Endereco)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Bairro)
+            @Html.TextBoxFor(model => model.Bairro, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Bairro)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email)
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+        <div class="form-group form-check">
+            @Html.CheckBoxFor(model => model.AtendePorConvenio, new { @class = "form-check-input" })
+            @Html.ValidationMessageFor(model => model.AtendePorConvenio)
+            @Html.LabelFor(model => model.AtendePorConvenio)
+        </div>
+        <div class="form-group">
+            @Html.CheckBoxFor(model => model.TemClinica, new { @class = "form-check-input" })
+            @Html.LabelFor(model => model.TemClinica)
+            @Html.ValidationMessageFor(model => model.TemClinica)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.WebsiteBlog)
+            @Html.TextBoxFor(model => model.WebsiteBlog, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.WebsiteBlog)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.IDCidade)
+            @Html.DropDownList("IDCidade", (IEnumerable<SelectListItem>)ViewBag.IDCidade, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.IDCidade)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.IDEspecialidade)
+            @Html.DropDownList("IDEspecialidade", (IEnumerable<SelectListItem>)ViewBag.IDEspecialidade, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.IDEspecialidade)
+        </div>
+    </form>
+</fieldset>
+<div class="btn-group">
+    @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Editar", "Editar", new { id = Model.IDMedico }, new { @class = "btn btn-primary" })
+</div>
+
+@section Scripts{ 
+    <script type="text/javascript">
+        $(document).ready(function () { 
+            var idCidade = "@ViewBag.Cidade";
+            var idEspecialidade = "@ViewBag.Especialidade";
+            console.log('idCidade: ' + idCidade);
+            console.log('idEspecialidade: ' + idEspecialidade);
+
+            if (idCidade !== undefined) $('#IDCidade').val(idCidade);
+            if (idEspecialidade !== undefined) $('#IDEspecialidade').val(idEspecialidade);
+        })
+    </script>
+}

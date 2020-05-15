@@ -1,0 +1,90 @@
+﻿@model IEnumerable<CadeMeuMedico.Models.Medicos>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Médicos</h2>
+
+<p>
+    @Html.ActionLink(" Adicionar", "Adicionar", null, new { @class = "btn btn-primary btn-lg fa fa-plus-square" })
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CRM)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bairro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AtendePorConvenio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TemClinica)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CRM)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bairro)
+                </td>
+                <td class="texto-centralizado">
+                    @Html.DisplayFor(modelItem => item.AtendePorConvenio)
+                </td>
+                <td class="texto-centralizado">
+                    @Html.DisplayFor(modelItem => item.TemClinica)
+                </td>
+                <td>
+                    @Html.ActionLink(" ", "Detalhar", new { id = item.IDMedico }, new { @class = "btn btn-info fa fa-sticky-note-o", @title = "Detalhar" })
+                    @Html.ActionLink(" ", "Editar", new { id = item.IDMedico }, new { @class = "btn btn-info fa fa-pencil", @title = "Alterar" })
+                    @Html.ActionLink(" ", "Deletar", new { id = item.IDMedico }, new { @class = "excluir btn btn-info fa fa-trash", @title = "Excluir" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts{
+    <script>
+        $(function () {
+            var linhaAtual;
+            $("#menuMedicos").addClass("active");
+            $(".excluir").on("click", function () {
+                if (confirm("Confirma a exclusão do médico?")) {
+                    var urlExclusao = $(this).attr("href");
+                    linhaAtual = $(this).closest("tr");
+                    $.ajax({
+                        url: urlExclusao,
+                        type: "POST"
+                    }).done(function (excluiu) {
+                        if (excluiu) {
+                            linhaAtual.remove();
+                        } else {
+                            alert("Ocorreu algum problema na exclusão do médico");
+                        }
+                    }).fail(function () {
+                        alert("Ocorreu algum erro");
+                    });
+                }
+                return false;
+            });
+        });
+    </script>
+}

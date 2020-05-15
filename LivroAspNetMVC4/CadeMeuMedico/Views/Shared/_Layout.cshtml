@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cade meu medico? - @ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            padding-top: 60px;
+        }
+
+        .btn-group {
+            padding: 15px 0;
+        }
+
+        .texto-centralizado {
+            text-align: center;
+        }
+
+        .field-validation-error {
+            color: red;
+            font-size: 11.5px;
+        }
+
+        .form-group {
+            margin-right: 5px;
+        }
+
+        #resultados {
+            margin: 15px 0;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Cadê meu médico", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li id="menuHome">@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li id="menuMedicos">@Html.ActionLink("Médicos", "Index", "Medicos")</li>
+                    <li id="menuEspecialidades">@Html.ActionLink("Especialidades", "Index", "Especialidades")</li>
+                    <li id="menuCidades">@Html.ActionLink("Cidades", "Index", "Cidades")</li>
+                    <li>@Html.ActionLink("Sobre", "About", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Cade Meu Medico Application</p>
+        </footer>
+    </div>
+
+    <script src="@Url.Content("~/Scripts/jquery-3.3.1.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    @RenderSection("scripts", required: false)    
+</body>
+</html>

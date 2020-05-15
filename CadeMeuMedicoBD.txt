@@ -1,0 +1,168 @@
+
+/* -----------------------------------------------------------------------------
+    Gera tabela BannersPublicitarios
+----------------------------------------------------------------------------- */
+
+IF OBJECT_ID ('dbo.BannersPublicitarios') IS NOT NULL
+	DROP TABLE dbo.BannersPublicitarios
+GO
+
+CREATE TABLE dbo.BannersPublicitarios
+(
+	IDBanner       BIGINT IDENTITY NOT NULL,
+	TituloCampanha VARCHAR (60) NOT NULL,
+	BannerCampanha VARCHAR (200) NOT NULL,
+	LinkBanner     VARCHAR (200) NULL,
+	PRIMARY KEY (IDBanner)
+)
+GO
+
+INSERT INTO BannersPublicitarios (TituloCampanha, BannerCampanha, LinkBanner) VALUES ('Campanha Conio', 'logo-conio-cademeumedico.png', 'http://conio.com.br')
+GO
+INSERT INTO BannersPublicitarios (TituloCampanha, BannerCampanha, LinkBanner) VALUES ('Campanha Casa do Código', 'banner-cdc-cademeumedico.png', 'http://casadocodigo.com.br')
+GO
+
+INSERT INTO BannersPublicitarios (TituloCampanha, BannerCampanha, LinkBanner) VALUES ('Campanha Conio', 'logo-conio-cademeumedico.png', 'http://conio.com.br')
+GO
+INSERT INTO BannersPublicitarios (TituloCampanha, BannerCampanha, LinkBanner) VALUES ('Campanha Casa do Código', 'banner-cdc-cademeumedico.png', 'http://casadocodigo.com.br')
+GO
+
+
+
+/* -----------------------------------------------------------------------------
+    Gera tabela Cidades
+----------------------------------------------------------------------------- */
+
+IF OBJECT_ID ('dbo.Cidades') IS NOT NULL
+	DROP TABLE dbo.Cidades
+GO
+
+CREATE TABLE dbo.Cidades
+(
+	IDCidade INT IDENTITY NOT NULL,
+	Nome     VARCHAR (100) NOT NULL,
+	PRIMARY KEY (IDCidade)
+)
+GO
+
+INSERT INTO Cidades (Nome) VALUES ('Natal')
+GO
+INSERT INTO Cidades (Nome) VALUES ('Belo Horizonte')
+GO
+INSERT INTO Cidades (Nome) VALUES ('Varginha')
+GO
+INSERT INTO Cidades (Nome) VALUES ('Rio de Janeiro')
+GO
+INSERT INTO Cidades (Nome) VALUES ('São Paulo')
+GO
+INSERT INTO Cidades (Nome) VALUES ('Porto Alegre')
+GO
+INSERT INTO Cidades (Nome) VALUES ('Cuiabá')
+GO
+INSERT INTO Cidades (Nome) VALUES ('Florianópolis')
+GO
+INSERT INTO Cidades (Nome) VALUES ('Varginha')
+GO
+INSERT INTO Cidades (Nome) VALUES ('Santa Luzia')
+GO
+INSERT INTO Cidades (Nome) VALUES ('Hawai')
+GO
+INSERT INTO Cidades (Nome) VALUES ('Ilhéus')
+GO
+INSERT INTO Cidades (Nome) VALUES ('Bonito')
+GO
+
+
+
+/* -----------------------------------------------------------------------------
+    Gera tabela Especialidades
+----------------------------------------------------------------------------- */
+
+IF OBJECT_ID ('dbo.Especialidades') IS NOT NULL
+	DROP TABLE dbo.Especialidades
+GO
+
+CREATE TABLE dbo.Especialidades
+(
+	IDEspecialidade INT IDENTITY NOT NULL,
+	Nome            VARCHAR (80) NOT NULL,
+	PRIMARY KEY (IDEspecialidade)
+)
+GO
+
+INSERT INTO Especialidades (Nome) VALUES ('Ortopedista')
+GO
+INSERT INTO Especialidades (Nome) VALUES ('Clínico Geral')
+GO
+INSERT INTO Especialidades (Nome) VALUES ('Dermatologista')
+GO
+INSERT INTO Especialidades (Nome) VALUES ('Angiologia')
+GO
+INSERT INTO Especialidades (Nome) VALUES ('Cardiologia')
+GO
+INSERT INTO Especialidades (Nome) VALUES ('Gastroenterologia')
+GO
+INSERT INTO Especialidades (Nome) VALUES ('Geriatria')
+GO
+
+
+
+/* -----------------------------------------------------------------------------
+    Gera tabela Medicos
+----------------------------------------------------------------------------- */
+
+IF OBJECT_ID ('dbo.Medicos') IS NOT NULL
+	DROP TABLE dbo.Medicos
+GO
+
+CREATE TABLE dbo.Medicos
+(
+	IDMedico          BIGINT IDENTITY NOT NULL,
+	CRM               VARCHAR (30) NOT NULL,
+	Nome              VARCHAR (80) NOT NULL,
+	Endereco          VARCHAR (100) NOT NULL,
+	Bairro            VARCHAR (60) NOT NULL,
+	Email             VARCHAR (100) NULL,
+	AtendePorConvenio BIT NOT NULL,
+	TemClinica        BIT NOT NULL,
+	WebsiteBlog       VARCHAR (80) NULL,
+	IDCidade          INT NOT NULL,
+	IDEspecialidade   INT NOT NULL,
+	PRIMARY KEY (IDMedico),
+	CONSTRAINT fk_medicos_cidades FOREIGN KEY (IDCidade) REFERENCES dbo.Cidades (IDCidade),
+	CONSTRAINT fk_medicos_especialidades FOREIGN KEY (IDEspecialidade) REFERENCES dbo.Especialidades (IDEspecialidade)
+)
+GO
+
+INSERT INTO Medicos (CRM, Nome, Endereco, Bairro, Email, AtendePorConvenio, TemClinica, WebsiteBlog, IDCidade, IDEspecialidade) VALUES ('28332 - MG', 'Abadia Gilda Buso Matoso', 'Rua Arthur Bernardes, 555', 'Martins', 'abadia.gilda@gmail.com', 1, 1, NULL, 16, 7)
+GO
+INSERT INTO Medicos (CRM, Nome, Endereco, Bairro, Email, AtendePorConvenio, TemClinica, WebsiteBlog, IDCidade, IDEspecialidade) VALUES ('8620 - MG', 'Abdalla Felicio Filho', 'Rua Dr Leonardo, 200', 'Centro', 'abdalla.felicio@globo.com', 0, 0, NULL, 17, 2)
+GO
+INSERT INTO Medicos (CRM, Nome, Endereco, Bairro, Email, AtendePorConvenio, TemClinica, WebsiteBlog, IDCidade, IDEspecialidade) VALUES ('127960 - RJ', 'Ítalo César de Sousa Ribamar', 'Rua Dois, 574', 'Mato Dentro', 'italo.cesar@gmail.com', 0, 1, NULL, 1, 1)
+GO
+INSERT INTO Medicos (CRM, Nome, Endereco, Bairro, Email, AtendePorConvenio, TemClinica, WebsiteBlog, IDCidade, IDEspecialidade) VALUES ('831 - RN', 'Zugneti Celina da Mota Melo', 'Rua Cinco, 785', 'Matriz', 'contatoI@unimed.com', 1, 0, NULL, 1, 2)
+GO
+
+
+
+/* -----------------------------------------------------------------------------
+    Gera tabela Usuarios
+----------------------------------------------------------------------------- */
+
+IF OBJECT_ID ('dbo.Usuarios') IS NOT NULL
+	DROP TABLE dbo.Usuarios
+GO
+
+CREATE TABLE dbo.Usuarios
+(
+	IDUsuario BIGINT IDENTITY NOT NULL,
+	Nome      VARCHAR (80) NOT NULL,
+	Login     VARCHAR (30) NOT NULL,
+	Senha     VARCHAR (100) NOT NULL,
+	Email     VARCHAR (100) NOT NULL,
+	PRIMARY KEY (IDUsuario)
+)
+GO
+
+INSERT INTO Usuarios (Nome, Login, Senha, Email) VALUES ('Administrador', 'admin', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'admin@cdmm.com')
+GO
