@@ -1,4 +1,7 @@
 
+CREATE DATABASE CadeMeuMedicoBD;
+
+
 /* -----------------------------------------------------------------------------
     Gera tabela BannersPublicitarios
 ----------------------------------------------------------------------------- */
@@ -15,11 +18,6 @@ CREATE TABLE dbo.BannersPublicitarios
 	LinkBanner     VARCHAR (200) NULL,
 	PRIMARY KEY (IDBanner)
 )
-GO
-
-INSERT INTO BannersPublicitarios (TituloCampanha, BannerCampanha, LinkBanner) VALUES ('Campanha Conio', 'logo-conio-cademeumedico.png', 'http://conio.com.br')
-GO
-INSERT INTO BannersPublicitarios (TituloCampanha, BannerCampanha, LinkBanner) VALUES ('Campanha Casa do Código', 'banner-cdc-cademeumedico.png', 'http://casadocodigo.com.br')
 GO
 
 INSERT INTO BannersPublicitarios (TituloCampanha, BannerCampanha, LinkBanner) VALUES ('Campanha Conio', 'logo-conio-cademeumedico.png', 'http://conio.com.br')
